@@ -2,42 +2,38 @@ class Pet:
     def __init__(self, name, species):
         self.name = name
         self.species = species
-        self.hunger = 50
-        self.energy = 50
-        self.happiness = 50
+        self.hunger, self.energy, self.happiness = 50, 50, 50
+
+    def adjust(self, hunger=0, energy=0, happiness=0):
+        self.hunger = min(max(self.hunger + hunger, 0), 100)
+        self.energy = min(max(self.energy + energy, 0), 100)
+        self.happiness = min(max(self.happiness + happiness, 0), 100)
 
     def feed(self):
         if self.hunger > 20:
-            self.hunger -= 20
-            print(f"{self.name} смачно поїв!")
+            print(f"{self.name} поїла.")
+            self.adjust(hunger=-60)
         else:
-            print(f"{self.name} не голодний зараз.")
+            print(f"{self.name} неїлась.")
 
     def play(self):
         if self.energy > 20:
-            self.happiness += 10
-            self.energy -= 20
-            self.hunger += 10
-            print(f"{self.name} весело грається!")
+            print(f"{self.name} грає!")
+            self.adjust(happiness=50, energy=-10, hunger=50)
         else:
-            print(f"{self.name} занадто втомлений, щоб гратися.")
+            print(f"{self.name} устала.")
 
     def sleep(self):
         if self.energy < 80:
-            self.energy += 20
-            self.hunger += 10
-            print(f"{self.name} міцно спить.")
+            print(f"{self.name} хропить.")
+            self.adjust(energy=30, hunger=20)
         else:
-            print(f"{self.name} зараз не хоче спати.")
+            print(f"{self.name} не хоче хропіти .")
 
     def status(self):
-        print(f"Статус {self.name}:")
-        print(f"  Голод: {self.hunger}/100")
-        print(f"  Енергія: {self.energy}/100")
-        print(f"  Щастя: {self.happiness}/100")
+        print(f"\n--- {self.name} ---\nГолод: {self.hunger}/100\nЗаряд: {self.energy}/100\nЩастя: {self.happiness}/100")
 
-my_pet = Pet("Барсик", "кіт")
-my_pet.status()
+my_pet = Pet("Луна", "Собака")
 my_pet.feed()
 my_pet.play()
 my_pet.sleep()
