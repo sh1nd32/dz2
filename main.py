@@ -18,7 +18,7 @@ class Pet:
 
     def play(self):
         if self.energy > 20:
-            print(f"{self.name} грає!")
+            print(f"{self.name} грає")
             self.adjust(happiness=50, energy=-10, hunger=50)
         else:
             print(f"{self.name} устала.")
